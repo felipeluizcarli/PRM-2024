@@ -7,7 +7,12 @@ function HighlightSection() {
                 <Stack direction="row">
                     <img src="/assets/poster4.jpg" alt="Poster 1" />
                     <Stack justifyContent="center" paddingLeft="3rem">
-                        <Typography variant="h4">A Casa do Dragão</Typography>
+                        <Typography 
+                        variant="h4">
+                            
+                            A Casa do Dragão
+                            
+                            </Typography>
                         <Typography 
                             variant="subtitle2" 
                             marginBottom="2rem">
