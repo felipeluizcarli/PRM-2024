@@ -1,6 +1,5 @@
 import { Movie } from "src/entities/movie-entity";
 import { Repository } from "typeorm";
-
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 
@@ -18,5 +17,11 @@ findAll(): Promise<Movie[]> {
 
 findById(id: string): Promise<Movie>{
     return this.repository.findOneBy({id : id});
+}
+save(movie: Movie): Promise<Movie> {
+    return this.repository.save(movie);
+}
+async remove(id: string): Promise<void> {
+    await this.repository.delete(id);
 }
 }
