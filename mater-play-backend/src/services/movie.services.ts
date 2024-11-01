@@ -1,3 +1,4 @@
+import { Category } from './../entities/category-entily';
 import { Movie } from "src/entities/movie-entity";
 import { Repository } from "typeorm";
 import { Injectable } from "@nestjs/common";
@@ -17,6 +18,15 @@ findAll(): Promise<Movie[]> {
 
 findById(id: string): Promise<Movie>{
     return this.repository.findOneBy({id : id});
+}
+findByCategory(category: Category): Promise<Movie[]>{
+    return this.repository.find({
+        where:{
+            categories:{
+                id: category.id,
+            }
+        }
+    }) 
 }
 save(movie: Movie): Promise<Movie> {
     return this.repository.save(movie);

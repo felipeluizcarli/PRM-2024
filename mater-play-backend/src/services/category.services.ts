@@ -11,8 +11,12 @@ export class CategoryService {
         private repository: Repository<Category>
     ){}
 
-    findALl(): Promise<Category[]> { 
-        return this.repository.find();
+    findAll(): Promise<Category[]> { 
+        return this.repository.find({
+            where: {
+                active: true,
+            },
+        });
     }
     findById(id: number): Promise<Category> {  
         return this.repository.findOneBy({id : id});

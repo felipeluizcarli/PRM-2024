@@ -1,24 +1,44 @@
+import { useEffect, useState } from "react";
 import Footer from "./app/components/Footer"
 import Header from "./app/components/Header"
 import HighlightSection from "./app/components/HighLighSection"
 import Section from "./app/components/Section"
+import { CategoryService } from "./app/services/category-service";
+import { ICategory } from "./app/@libs/types";
 
 function App() {
 
+  const [categories, setCategories] = useState<ICategory[]>([]);
+
+  useEffect(() => {
+    CategoryService.getAll()
+      .then(result => {
+        setCategories(result.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }, []);
+
   return (
     <div className="wrapper">
-      <Header/>
+      <Header />
       <main
-      style={{
-        marginTop:'8rem'
+        style={{
+          marginTop: '8rem'
         }}>
-        
+
       </main>
       <HighlightSection />
-      <Section title='Recomendados para você'/>
-      <Section title='Séries do momento'/>
-      <Section title='Assistir com a família'/>
-      <Footer/>
+      {
+
+        categories.map(iten => (
+          <Section key={iten.id} category={iten} />
+        ))
+
+      }
+
+      <Footer />
     </div>
   )
 }

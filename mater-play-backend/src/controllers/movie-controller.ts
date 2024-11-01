@@ -1,4 +1,6 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, ParseUUIDPipe, Post, Put } from "@nestjs/common";
+import { Key } from './../../../mater-play-frontend/node_modules/path-to-regexp/index.d';
+import { Category } from './../entities/category-entily';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, ParseIntPipe, ParseUUIDPipe, Post, Put, Query } from "@nestjs/common";
 import { Movie } from "src/entities/movie-entity";
 import { MovieServices } from "src/services/movie.services";
 
@@ -8,7 +10,12 @@ export class MovieController {
     constructor(private service: MovieServices ) {}
     
     @Get()
-    findAll(): Promise<Movie[]> {
+    findAll( @Query('categoryId') categoryId?: string): Promise<Movie[]> {
+      if (categoryId) {
+        return this.service.findByCategory({
+          id: Number(categoryId),
+        } as Category)
+      }
         return this.service.findAll();
     }
 
@@ -27,8 +34,11 @@ export class MovieController {
     create (@Body() movie: Movie): Promise<Movie> {
     return this.service.save(movie);
   }
-  @Put()
-  async update(@Param('id', ParseUUIDPipe) id: string, movie: Movie): Promise<Movie> {
+  @Put(':id')
+  async update(
+    @Param('id', ParseUUIDPipe) id: string, 
+    @Body() movie: Movie
+  ):Promise<Movie> {
     const found = await this.service.findById(id);
 
     if (!found) {
