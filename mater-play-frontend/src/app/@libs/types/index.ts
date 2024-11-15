@@ -1,3 +1,8 @@
+export interface IGenero{
+    id?: number
+    name: string
+}    
+
 export interface ICategory{
     id?: number
     name: string
@@ -9,4 +14,6 @@ export interface IMove{
     description: string
     poster: string
     ageRating: string
+    categories: ICategory[];
+    generos: IGenero[]; 
 }

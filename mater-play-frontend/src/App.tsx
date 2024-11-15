@@ -9,7 +9,7 @@ function App() {
     <div className="wrapper">
       <Header />
       <Routes>
-        <Route path="/:id?" element={<HomePage />} />
+        <Route path="/:id?" elemento={<HomePage />} />
       </Routes>
       <Footer />
     </div>
