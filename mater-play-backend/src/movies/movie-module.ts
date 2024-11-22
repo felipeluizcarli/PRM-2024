@@ -4,10 +4,13 @@ import { MovieService } from "./movie-services";
 import { Module } from "@nestjs/common";
 import { Movie } from "./movie-entity";
 import { Category } from "src/categories/category-entity";
+import { Genero } from "src/genero/genero-entity";
+import { SupabaseModule } from "src/@libs/supabase.module";
+
 
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Movie, Category])],
+    imports: [TypeOrmModule.forFeature([Movie, Category, Genero]), SupabaseModule],
     controllers: [MovieController],
     providers: [MovieService],
 })
